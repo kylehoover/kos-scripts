@@ -133,10 +133,10 @@ local launchSequence is list(
     }
   },
   {
-    local max_acc is ship:maxthrust / ship:mass.
-    local remaining_burn_time is nd:deltav:mag / max_acc.
+    local maxAcc is ship:maxthrust / ship:mass.
+    local remainingBurnTime is nd:deltav:mag / maxAcc.
     set steeringV to nd:burnvector.
-    set throttleV to min(1, remaining_burn_time).
+    set throttleV to min(1, remainingBurnTime).
 
     if vdot(dvPreBurn, nd:deltav) < 0 {
       set done to true.
