@@ -5,15 +5,7 @@ local logLineNum is -1.
 global function clearLine {
   parameter lineNum.
 
-  local i is 0.
-  local s is "".
-
-  until i = terminal:width {
-    set i to i + 1.
-    set s to s + " ".
-  }
-
-  print s at (0, lineNum).
+  print "":padright(terminal:width) at (0, lineNum).
 }
 
 global function logt {
@@ -57,9 +49,14 @@ global function getNumberInput {
       break.
     }
 
+    if c = terminal:input:backspace and input:length > 0 {
+      set input to input:remove(input:length - 1, 1).
+      print input:padright(input:length + 1) at (prompt:length, lineNum).
+    }
+
     local charCode is unchar(c).
 
-    if charCode >= 48 and charCode <= 57 {
+    if (charCode >= 48 and charCode <= 57) or (charCode = 45 and input:length = 0) {
       set input to input + c.
       print input at (prompt:length, lineNum).
     }
